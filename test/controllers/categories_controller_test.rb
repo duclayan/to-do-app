@@ -20,9 +20,8 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     end
 
     test 'should update' do
-        update_category_path(:id => 2)
-        assert_response :success
-
+        put update_category_path(:id => categories(:one)), params: { category: {name: 'Sampletitle', description: 'This is a sample body text of an input'} }
+        assert_equal 'Sampletitle', Category.find(categories(:one).id).name
     end
 
     test 'should show' do
