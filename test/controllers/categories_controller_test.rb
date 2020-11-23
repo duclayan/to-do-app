@@ -12,7 +12,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     end
 
     test 'should create' do
-        create_category_url
+        create_category_url(:name => 'Sampletitle', :description => 'This is a sample body text of an input')
         assert_response :success
     end
 
@@ -24,7 +24,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
 
     test 'should show' do
         show_category_path(:id => 2)
-        assert_response:success
+        assert_response :success
     end
 
     test 'should get delete' do 

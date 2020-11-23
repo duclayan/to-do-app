@@ -7,5 +7,4 @@ Rails.application.routes.draw do
   delete '/categories/:id' => 'categories#delete', as: 'delete_category'
   put '/categories/:id/' => 'categories#update', as: 'update_category'
   get '/categories/:id' => 'categories#show', as: 'show_category'
-
 end
