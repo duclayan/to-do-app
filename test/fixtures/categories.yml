@@ -2,8 +2,8 @@
 
 one:
   name: MyString
-  description: MyString
+  description: This is a description of body one.
 
 two:
   name: MyString
-  description: MyString
+  description: This is a description of body two.

@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class CreateCategoryTest < ActionDispatch::IntegrationTest
+    
     test 'should go to new form and create article' do 
      get '/categories/new'
      assert_response :success

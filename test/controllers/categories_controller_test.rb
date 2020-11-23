@@ -21,7 +21,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
 
     test 'should update' do
         put update_category_path(:id => categories(:one)), params: { category: {name: 'Sampletitle', description: 'This is a sample body text of an input'} }
-        assert_equal 'Sampletitle', Category.find(categories(:one).id).name
+        assert_equal 'Sampletitle', assigns(:category).name
     end
 
     test 'should show' do
