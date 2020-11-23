@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  description: This is a description of body one.
+  name: Sampletitle
+  description: This is a sample body text of an input
 
 two:
-  name: MyString
-  description: This is a description of body two.
+  name: Sampletitle
+  description: This is a sample body text of an input

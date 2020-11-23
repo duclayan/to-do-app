@@ -1,0 +1,25 @@
+<div class = "container mt-6 is-centered">
+    <% @category.each do |entry|%>
+        <div class = "container">
+            <div class = "card"> 
+                <header class = "class-header">
+                <p class = "card-header-title is-size-2 has-text-weight-bold mb-3", style = "max-height: 500px;"> <%= entry.name %> </p>
+                </header>
+
+                <div class = "card-content">
+                    <div class = "content">
+                        <p><%="category Number #{entry.id}" %></p>
+                        <p><%= entry.description%></p>
+                        <p class = "itallic">Created At:<%= time_ago_in_words(entry.created_at)%> ago </p>
+                    </div>
+                </div> 
+                
+                <div class = "card-footer" >
+                            <%= link_to 'Show', show_category_path(entry), class: 'card-footer-item' %>
+                            <%= link_to 'Edit', edit_category_path(entry), class: 'card-footer-item' %>
+                            <%= link_to 'Destroy', delete_category_path(entry), method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-footer-item' %>
+                </div>               
+            </div>
+        </div>
+    <% end %>
+</div>

@@ -1,22 +1,21 @@
 <div class = "columns is-centered mt-6">
     <div class = "column is-one-third">
-        <h1 class = "is-size-2 has-text-weight-bold mb-3">New category</h1>
-
-        <%= form_with scope: :category, url: create_category_path, local: true do |f| %>
-
-            <p> 
-                <% if @category.errors.any?%>
+        <h1 class = "is-size-2 has-text-weight-bold mb-3">Edit category</h1>
+        <%= form_with method: :put, scope: :category, url: update_category_path, local: true do |f| %>
+            <p>
+                <% if @category.errors.any? %>
                     <ul>
-                        <% @category.errors.full_messages.each do |message|%>
+                        <% @category.errors.full_messages.each do |message| %>
                             <li>
                                 <%= message %>
                             </li>
                         <% end %>
-                    </ul>
+                    </ul> 
                 <% end %>
             </p>
 
             <p class = 'field'> 
+
                 <%= f.label :name %>
                 <%= f.text_field :name, class: "input"%>
             </p>
@@ -25,17 +24,13 @@
                 <%= f.label :description %> </br>
                 <%= f.text_area :description, class: "input", style: "margin: 0px; width:583.6px; height: 300px;" %>
             </p>
-
-            <p class = 'field'>
-                <%= f.label :tags%> </br>
-                <%= f.select :tags, ['Sports','Personal','Education','Recreation'], class: "input", style: "margin: 0px; width:583.6px; height: 50px;"%>
-            </p>
-
-
+            
             <p>
-                <%= f.submit class: "button is-gray" %>
-                <%= link_to 'Back', categories_path, class: "button is-gray mb-2" %>
+                <%= f.submit  class: "button is-gray"%>
+                <%= link_to 'Back', categories_path,  class: "button is-gray mb-2" %>
+                <%= link_to 'Delete', delete_category_path(@category), method: :delete, data: { confirm: 'Are you sure?' },  class: "button is-gray" %>
             </p>
         <% end %>
+        
     </div>
 </div>

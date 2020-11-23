@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/categories/new' => 'categories#new', as: 'new_category'
   post '/categories/create' => 'categories#create', as: 'create_category'
   delete '/categories/:id' => 'categories#delete', as: 'delete_category'
-  put '/categories/:id/' => 'categories#update', as: 'update_category'
+  put '/categories/update/:id/' => 'categories#update', as: 'update_category'
   get '/categories/:id' => 'categories#show', as: 'show_category'
+  get '/categories/edit/:id' => 'categories#edit', as: 'edit_category'
 end
