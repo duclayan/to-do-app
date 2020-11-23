@@ -1,7 +1,12 @@
 require 'test_helper'
 
 class CreateCategoryTest < ActionDispatch::IntegrationTest
-    
+
+    def setup
+        @one = categories :one
+        @two = categories :two
+    end
+
     test 'should go to new form and create article' do 
      get '/categories/new'
      assert_response :success
