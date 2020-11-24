@@ -6,11 +6,6 @@ class CreateCategoryTest < ActionDispatch::IntegrationTest
         @category = categories(:one)
     end
 
-    # test 'categories index' do
-    #     get categories_path
-    #     Category.assert_text(@category.name)
-    # end
-
     test '01: Create a new category' do 
         get new_category_path
         assert_response :success
