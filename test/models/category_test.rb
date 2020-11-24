@@ -2,9 +2,25 @@ require 'test_helper'
 
 class CategoryTest < ActiveSupport::TestCase
 
-  test "should not save card without name" do
-      category = Category.new
-      assert_not category.save
+  def setup
+    @category = Category.new(name: 'Dom', description: 'This is a subtle description of the whole context')
   end
 
+  test "invalid without name" do
+
+      @category.name = nil
+
+      refute @category.valid?,'saved user without a name'
+      assert_not_nil @category.errors[:name], 'no validation error: name present'
+  end
+
+  test "valid category name" do
+    assert @category.valid?
+  end
+
+  test 'invalid without description' do
+    @category.description = nil
+    refute @category.valid?, 'saved user without a description'
+    assert_not_nil @category.errors[:email]
+  end
 end
