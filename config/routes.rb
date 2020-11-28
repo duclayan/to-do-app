@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  resources :tasks
-  #resources: categories
+  # resources :tasks
+  # resources :categories
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   get '/' => 'categories#index', as: 'categories'
   get '/categories/new' => 'categories#new', as: 'new_category'
@@ -9,4 +9,13 @@ Rails.application.routes.draw do
   put '/categories/update/:id/' => 'categories#update', as: 'update_category'
   get '/categories/:id' => 'categories#show', as: 'show_category'
   get '/categories/edit/:id' => 'categories#edit', as: 'edit_category'
+
+  get '/' => 'tasks#index', as: 'tasks'
+  get '/tasks/new' => 'tasks#new', as: 'new_task'
+  post '/tasks/create' => 'tasks#create', as: 'create_task'
+  delete '/tasks/:id' => 'tasks#delete', as: 'delete_task'
+  put '/tasks/update/:id/' => 'tasks#update', as: 'update_task'
+  get '/tasks/:id' => 'tasks#show', as: 'show_task'
+  get '/tasks/edit/:id' => 'tasks#edit', as: 'edit_task'
+
 end

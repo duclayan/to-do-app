@@ -20,8 +20,8 @@ class CreateCategoryTest < ActionDispatch::IntegrationTest
     end
 
     test '02: Update a current category' do 
-
-        get edit_category_path(:id => @category.id)
+        @category = categories(:one)
+        get edit_category_path(:id => @category.id )
         assert_response :success
 
         assert_changes '@category.name' do
@@ -35,6 +35,8 @@ class CreateCategoryTest < ActionDispatch::IntegrationTest
     end
 
     test '03: delete category' do
+        @category = categories(:one)
+
         get edit_category_path(:id => @category.id)
         assert_response :success
 

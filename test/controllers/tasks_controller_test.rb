@@ -1,48 +1,35 @@
 require 'test_helper'
 
 class TasksControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @task = tasks(:one)
-  end
-
-  test "should get index" do
+  def setup
     get tasks_url
-    assert_response :success
   end
 
-  test "should get new" do
-    get new_task_url
-    assert_response :success
+  test 'should get new' do 
+      get new_task_url
+      assert_response :success
   end
 
-  test "should create task" do
-    assert_difference('Task.count') do
-      post tasks_url, params: { task: { description: @task.description, title: @task.title } }
-    end
+  test 'should create' do
+      post create_task_path, params: { task: {title: 'Sampletitle', description: 'This is a sample body text of an input'} }
+      assert_response :redirect
 
-    assert_redirected_to task_url(Task.last)
+      follow_redirect!
+      assert_response :success
   end
 
-  test "should show task" do
-    get task_url(@task)
-    assert_response :success
+  test 'should update' do
+      put update_task_path(:id => categories(:one)), params: { task: {title: 'Sampletitle', description: 'This is a sample body text of an input'} }
+      assert_equal 'Sampletitle', assigns(:task).title
   end
 
-  test "should get edit" do
-    get edit_task_url(@task)
-    assert_response :success
+  test 'should show' do
+      show_task_path(:id => 2)
+      assert_response :success
   end
 
-  test "should update task" do
-    patch task_url(@task), params: { task: { description: @task.description, title: @task.title } }
-    assert_redirected_to task_url(@task)
-  end
-
-  test "should destroy task" do
-    assert_difference('Task.count', -1) do
-      delete task_url(@task)
-    end
-
-    assert_redirected_to tasks_url
+  test 'should get delete' do 
+      delete_task_path(:id => 2)
+      assert_response :success
   end
 end
