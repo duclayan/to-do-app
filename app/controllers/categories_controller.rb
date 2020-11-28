@@ -2,7 +2,6 @@ class CategoriesController < ApplicationController
 
     def index
         @category = Category.all
-
     end
 
     def new 
@@ -10,7 +9,7 @@ class CategoriesController < ApplicationController
     end
 
     def create
-        @category = Category.new(article_params)
+        @category = Category.new(category_params)
 
         if @category.save!
             redirect_to categories_path
@@ -27,7 +26,6 @@ class CategoriesController < ApplicationController
         else
             render :edit
         end
-    
     end
 
     def show 
@@ -46,7 +44,7 @@ class CategoriesController < ApplicationController
     
     private
     
-    def article_params
+    def category_params
         params.require(:category).permit(:name, :description, :tags)
     end
 end
