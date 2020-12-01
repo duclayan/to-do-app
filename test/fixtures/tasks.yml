@@ -3,6 +3,7 @@
 one:
   title: MyString
   description: MyText
+  category_id: 
 
 two:
   title: MyString
