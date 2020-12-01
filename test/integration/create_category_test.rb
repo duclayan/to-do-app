@@ -11,7 +11,7 @@ class CreateCategoryTest < ActionDispatch::IntegrationTest
         assert_response :success
         
         assert_difference 'Category.count',1 do 
-            post create_category_path, params: { category: {name: 'Sampletitle', description: 'This is a sample body text of an input'} }
+            post create_category_path, params: { category: {name: 'Sampletitle'} }
             assert_response :redirect
         end
 

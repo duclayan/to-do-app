@@ -12,7 +12,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     end
 
     test 'should create' do
-        post create_category_path, params: { category: {name: 'Sampletitle', description: 'This is a sample body text of an input'} }
+        post create_category_path, params: { category: {name: 'Sampletitle'} }
         assert_response :redirect
 
         follow_redirect!
@@ -20,7 +20,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     end
 
     test 'should update' do
-        put update_category_path(:id => categories(:one)), params: { category: {name: 'Sampletitle', description: 'This is a sample body text of an input'} }
+        put update_category_path(:id => categories(:one)), params: { category: {name: 'Sampletitle'} }
         assert_equal 'Sampletitle', assigns(:category).name
     end
 
