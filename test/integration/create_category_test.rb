@@ -11,7 +11,7 @@ class CreateCategoryTest < ActionDispatch::IntegrationTest
         assert_response :success
         
         assert_difference 'Category.count',1 do 
-            post create_category_path, params: { category: {name: 'Sampletitle'} }
+            post categories_path, params: { category: {name: 'Sampletitle'} }
             assert_response :redirect
         end
 
@@ -25,7 +25,7 @@ class CreateCategoryTest < ActionDispatch::IntegrationTest
         assert_response :success
 
         assert_changes '@category.name' do
-            put update_category_path(:id => @category.id),  params: { category: {name: 'Sampletitle2' } }
+            put category_path(:id => @category.id),  params: { category: {name: 'Sampletitle2' } }
             @category.reload
             assert_response :redirect
         end
@@ -41,7 +41,7 @@ class CreateCategoryTest < ActionDispatch::IntegrationTest
         assert_response :success
 
         assert_difference 'Category.count', -1 do
-            delete delete_category_path(:id => @category.id)
+            delete category_path(:id => @category.id)
             assert_response :redirect
         end
 

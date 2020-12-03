@@ -52,9 +52,9 @@ class CreateTaskTest < ActionDispatch::IntegrationTest
 
     test '03: Delete task - task is done' do
         #Same as update
-        
+        @category = categories(:one)
         @task = tasks(:one)
-        get edit_task_path(:id => @task.id)
+        get edit_task_path(:category_id => @category.id, :id => @task.id)
         assert_response :success
 
         assert_difference 'Task.count', -1 do 

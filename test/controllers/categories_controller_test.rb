@@ -12,7 +12,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     end
 
     test 'should create' do
-        post create_category_path, params: { category: {name: 'Sampletitle'} }
+        post categories_path, params: { category: {name: 'Sampletitle'} }
         assert_response :redirect
 
         follow_redirect!
@@ -20,17 +20,17 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     end
 
     test 'should update' do
-        put update_category_path(:id => categories(:one)), params: { category: {name: 'Sampletitle'} }
+        put category_path(:id => categories(:one)), params: { category: {name: 'Sampletitle'} }
         assert_equal 'Sampletitle', assigns(:category).name
     end
 
     test 'should show' do
-        show_category_path(:id => 2)
+        category_path(:id => 2)
         assert_response :success
     end
 
     test 'should get delete' do 
-        delete_category_path(:id => 2)
+        category_path(:id => 2)
         assert_response :success
     end
 end

@@ -3,13 +3,13 @@ require 'test_helper'
 class TaskTest < ActiveSupport::TestCase
 
   def setup
-    
-    @task = Task.new(title: 'Make Manakeesh', description: 'You have to prepare the ingredients before creating this goodie', category_id: @)
+    @task = Task.new(title: 'Make Manakeesh', description: 'You have to prepare the ingredients before creating this goodie')
   end
   
   #Happy-path
   test "Valid task title" do
-    @task = Task.new(title: 'Make Manakeesh', description: 'You have to prepare the ingredients before creating this goodie')
+    @category = Category.new
+    @task = Task.new(title: 'Make Manakeesh', description: 'You have to prepare the ingredients before creating this goodie', category_id: @category.id)
 
     assert @task.valid?
   end
