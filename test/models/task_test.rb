@@ -3,18 +3,17 @@ require 'test_helper'
 class TaskTest < ActiveSupport::TestCase
 
   def setup
-    @task = Task.new(title: 'Make Manakeesh', description: 'You have to prepare the ingredients before creating this goodie')
+    @category = categories(:one)
+    @task = Task.new(title: 'Make Manakeesh', description: 'You have to prepare the ingredients before creating this goodie', category_id: @category.id)
+
   end
   
   #Happy-path
-  test "Valid task title" do
-    @category = Category.new
-    @task = Task.new(title: 'Make Manakeesh', description: 'You have to prepare the ingredients before creating this goodie', category_id: @category.id)
-
+  test "01: Valid task title" do
     assert @task.valid?
   end
 
-  test "invalid without name" do
+  test "02: invalid without name" do
 
       @task.title = nil
 
@@ -22,7 +21,7 @@ class TaskTest < ActiveSupport::TestCase
       assert_not_nil @task.errors[:name], 'no validation error: task present'
   end
 
-  test 'invalid without description' do
+  test '03: invalid without description' do
     @task.description = nil
     refute @task.valid?, 'saved task without a description'
     # assert_not_nil @task.errors[:description]

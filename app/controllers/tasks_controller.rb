@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   end
 
   def new 
-    @task = @category.tasks.new(task_params)
+    @task = Task.new(task_params)
   end
 
   def create
