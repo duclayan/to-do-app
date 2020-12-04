@@ -2,27 +2,29 @@
 #2. User can update a current task 
 #3. User can delete the current task
 
+#NOTES: 
+#When creating the set up always use '@'
 require 'test_helper'
 
 class CreateTaskTest < ActionDispatch::IntegrationTest
     
     def setup
-        # Assign fixture to task
-        # We will use this for tests
+
     @task = tasks(:one)
+    @category = categories(:one)
+    @sample_keys = {category_id: @category.id ,id: @task.id}
+    @sample_params = {params: {task: {title: 'Create and Amazing API', description: 'Get started with an amazing API by searching', category_id: @category.id}}}
+    @category_id = {:category_id => @category.id}
+
     end
 
     test '01: User creates new task' do
-        # 1.Check if new_task_path is working
-        # 2. IF working => success : fail
-        # 3. Check if successfully added (assert_difference)
-        # 4. Create task with the input
 
-        get new_task_path
+        get new_category_task_path(@category_id),  @sample_params
         assert_response :success
 
         assert_difference 'Task.count', 1 do 
-            post create_task_path, params: { task: {title: 'Create an Amazing API', description: 'Get started by searching in Google'}}
+            post category_tasks_path(@category_id), @sample_params
             assert_response :redirect
         end
 
@@ -31,17 +33,12 @@ class CreateTaskTest < ActionDispatch::IntegrationTest
     end
 
     test '02: Update current task' do
-        #1. @task holds fixture
-        #2. Access Edit controller - should pass id parameter
-        #3. Create changes - assert_changes
-        #4. Access Update Method From Controller 
-        
         @task = tasks(:one)
-        get edit_task_path(:id => @task.id)
+        get edit_category_task_path(@sample_keys)
         assert_response :success
 
         assert_changes '@task.title' do
-            put update_task_path(:id => @task.id), params: {task: {title: 'Create and Amazing API', description: 'Get started with an amazing API by searching'}}
+            patch update_task_path(@category_id), @sample_params
             @task.reload
             assert_response :redirect
         end
@@ -51,14 +48,12 @@ class CreateTaskTest < ActionDispatch::IntegrationTest
     end
 
     test '03: Delete task - task is done' do
-        #Same as update
-        @category = categories(:one)
-        @task = tasks(:one)
-        get edit_task_path(:category_id => @category.id, :id => @task.id)
+        get edit_category_task_path(@sample_keys)
+
         assert_response :success
 
         assert_difference 'Task.count', -1 do 
-            delete delete_task_path(:id => @task.id)
+            delete category_task_path(@sample_keys)
             assert_response :redirect
         end
         follow_redirect!
