@@ -14,12 +14,12 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '01: should get new' do 
-    get new_category_task_path, @sample_params
+    get new_category_task_path, **@sample_params
     assert_response :success
   end
 
   test '02: should create' do
-      post category_tasks_path, @sample_params
+      post category_tasks_path, **@sample_params
       assert_response :redirect
 
       follow_redirect!
@@ -27,20 +27,18 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '03: should update' do
-      put category_task_path(@sample_keys), @sample_params
+      put category_task_path(@sample_keys), **@sample_params
       assert_equal 'Sampletitle', assigns(:task).title
   end
 
   test '04: should show' do
-    sign_in users(:one)
-
       get category_task_path(@sample_keys)
       assert_response :success
 
   end
 
   test '05: should get delete' do 
-      delete category_task_path(@category,@task)
+      delete category_task_path(@sample_keys)
 
       follow_redirect!
       assert_response :success

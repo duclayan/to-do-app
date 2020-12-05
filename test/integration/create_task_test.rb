@@ -15,18 +15,17 @@ class CreateTaskTest < ActionDispatch::IntegrationTest
     @sample_keys = {category_id: @category.id ,id: @task.id}
     @sample_params = {params: {task: {title: 'Create and Amazing API', description: 'Get started with an amazing API by searching', category_id: @category.id}}}
     @category_id = {:category_id => @category.id}
+    sign_in users(:one)
+
 
     end
 
     test '01: User creates new task' do
-        sign_in users(:one)
-
-        get new_category_task_path(@category_id),  @sample_params
-        
+        get new_category_task_path(@category_id), **@sample_params
         assert_response :success
 
         assert_difference 'Task.count', 1 do 
-            post category_tasks_path(@category_id), @sample_params
+            post category_tasks_path(@category_id), **@sample_params
             assert_response :redirect
         end
 
@@ -35,14 +34,11 @@ class CreateTaskTest < ActionDispatch::IntegrationTest
     end
 
     test '02: Update current task' do
-        @task = tasks(:one)
-        sign_in users(:one)
-
         get edit_category_task_path(@sample_keys)
         assert_response :success
 
         assert_changes '@task.title' do
-            patch category_task_path(@category_id), @sample_params
+            patch category_task_path(@category_id), **@sample_params
             @task.reload
             assert_response :redirect
         end
@@ -52,10 +48,7 @@ class CreateTaskTest < ActionDispatch::IntegrationTest
     end
 
     test '03: Delete task - task is done' do
-        sign_in users(:one)
-
         get edit_category_task_path(@sample_keys)
-
         assert_response :success
 
         assert_difference 'Task.count', -1 do 
