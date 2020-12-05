@@ -1,8 +1,14 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+#   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def authenticate_user!(opts={})
+    opts[:scope] = :user
+    warden.authenticate!(opts) if !devise_controller? || opts.delete(:force)
   end
 
   def index

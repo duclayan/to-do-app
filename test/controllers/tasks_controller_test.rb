@@ -4,8 +4,13 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
   def setup
     @category = categories(:one)
     @task = tasks(:one)
+    @sample_keys = {category_id: @category.id ,id: @task.id}
     @sample_params =  {params: { task: {title: 'Sampletitle', description: 'This is a sample body text of an input', category_id: @category.id} }}
     get category_tasks_url(@category)
+    sign_in users(:one)
+
+    
+
   end
 
   test '01: should get new' do 
@@ -22,13 +27,16 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '03: should update' do
-      put category_task_path(:id => categories(:one)), @sample_params
+      put category_task_path(@sample_keys), @sample_params
       assert_equal 'Sampletitle', assigns(:task).title
   end
 
   test '04: should show' do
-      category_task_path(:id => 2)
+    sign_in users(:one)
+
+      get category_task_path(@sample_keys)
       assert_response :success
+
   end
 
   test '05: should get delete' do 

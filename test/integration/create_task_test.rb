@@ -19,8 +19,10 @@ class CreateTaskTest < ActionDispatch::IntegrationTest
     end
 
     test '01: User creates new task' do
+        sign_in users(:one)
 
         get new_category_task_path(@category_id),  @sample_params
+        
         assert_response :success
 
         assert_difference 'Task.count', 1 do 
@@ -34,6 +36,8 @@ class CreateTaskTest < ActionDispatch::IntegrationTest
 
     test '02: Update current task' do
         @task = tasks(:one)
+        sign_in users(:one)
+
         get edit_category_task_path(@sample_keys)
         assert_response :success
 
@@ -48,6 +52,8 @@ class CreateTaskTest < ActionDispatch::IntegrationTest
     end
 
     test '03: Delete task - task is done' do
+        sign_in users(:one)
+
         get edit_category_task_path(@sample_keys)
 
         assert_response :success
