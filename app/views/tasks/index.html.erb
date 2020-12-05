@@ -1,0 +1,55 @@
+<div class = "container mt-6 is-centered">
+
+    <div class="table-container">
+        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+            <thead>
+                <tr>
+                    <th> Category </th>
+                    <th> Date </th>
+                    <th> Task </th>
+                    <th> Action </th>
+                </tr>
+            </thead>
+            
+            <tbody>
+               <div class = "container mt-6 is-centered">
+
+    <div class="table-container">
+        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+            <thead>
+                <tr>
+                    <th> Category </th>
+                    <th> Date </th>
+                    <th> Task </th>
+                    <th> Action </th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <% @task.each do |entry|%>
+
+                    <% if entry.deadline === Date.today %>
+                        <tr>
+                            <td> <%= entry.tags%> </td>
+                            <td> <%= entry.created_at.strftime("%B %d, %Y") %> </td>
+                            <td> <%= entry.name%> </td>
+                            <td>                 
+                                <div class = "card-footer" >
+                                    <%= link_to 'Details', category_task_path(entry), class: 'card-footer-item' %>
+                                    <%= link_to 'Edit', edit_category_task_path(entry), class: 'card-footer-item' %>
+                                    <%= link_to 'Destroy', category_task_path(entry), method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-footer-item' %>
+                                </div>    
+                            </td>
+                    </tr> 
+                   <% end %>
+                <% end %>
+            </tbody>
+
+        </table>
+    </div>
+</div>
+            </tbody>
+
+        </table>
+    </div>
+</div>

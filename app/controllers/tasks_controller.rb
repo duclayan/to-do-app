@@ -16,7 +16,7 @@ class TasksController < ApplicationController
   end
 
   def new 
-    @task = Task.new(task_params)
+    @task = Task.new
   end
 
   def create
@@ -56,6 +56,6 @@ class TasksController < ApplicationController
   private
 
   def task_params
-      params.require(:task).permit(:title, :description, :category_id)
+      params.require(:task).permit(:title, :description, :category_id, :deadline, :iscomplete)
   end
 end

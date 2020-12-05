@@ -13,18 +13,21 @@
             
             <tbody>
                 <% @category.each do |entry|%>
-                    <tr>
-                        <td> <%= entry.tags%> </td>
-                        <td> <%= entry.created_at.strftime("%B %d, %Y") %> </td>
-                        <td> <%= entry.name%> </td>
-                        <td>                 
-                            <div class = "card-footer" >
-                                <%= link_to 'Details', category_path(entry), class: 'card-footer-item' %>
-                                <%= link_to 'Edit', edit_category_path(entry), class: 'card-footer-item' %>
-                                <%= link_to 'Destroy', category_path(entry), method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-footer-item' %>
-                            </div>    
-                        </td>
-                   </tr> 
+
+                    <%# <% entry.where(entry.created_at.strftime("%B %d, %Y") = Date.today.strftime("%B %d, %Y")) %> %>
+                        <tr>
+                            <td> <%= entry.tags%> </td>
+                            <td> <%= entry.created_at.strftime("%B %d, %Y") %> </td>
+                            <td> <%= entry.name%> </td>
+                            <td>                 
+                                <div class = "card-footer" >
+                                    <%= link_to 'Details', category_path(entry), class: 'card-footer-item' %>
+                                    <%= link_to 'Edit', edit_category_path(entry), class: 'card-footer-item' %>
+                                    <%= link_to 'Destroy', category_path(entry), method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-footer-item' %>
+                                </div>    
+                            </td>
+                    </tr> 
+                   <%# <% end %> %>
                 <% end %>
             </tbody>
 
