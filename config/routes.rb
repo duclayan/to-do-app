@@ -7,6 +7,6 @@ Rails.application.routes.draw do
     resources :tasks
   end
 
-  root 'categories#new'
+  root 'tasks#index'
 
 end
