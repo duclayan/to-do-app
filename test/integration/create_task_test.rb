@@ -38,7 +38,7 @@ class CreateTaskTest < ActionDispatch::IntegrationTest
         assert_response :success
 
         assert_changes '@task.title' do
-            patch update_task_path(@category_id), @sample_params
+            patch category_task_path(@category_id), @sample_params
             @task.reload
             assert_response :redirect
         end
