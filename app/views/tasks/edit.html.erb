@@ -1,6 +1,9 @@
-<h1>Editing Task</h1>
+<div class = "columns is-centered mt-6">
+    <div class = "column is-one-third">
+        <h1 class = "is-size-2 has-text-weight-bold mb-3">Edit Task</h1>
 
-<%= render 'form', task: @task %>
-
-<%= link_to 'Show', category_task_path %> |
-<%= link_to 'Back', category_tasks_path %>
+        <%= form_with method: :put, scope: :task, url: user_category_task_path(current_user, @task.category, @task), local: true do |form| %>
+            <%= render partial: 'form', task: @task, locals: { form: form } %>
+        <% end %>
+    </div>
+</div>

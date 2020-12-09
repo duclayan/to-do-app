@@ -2,7 +2,7 @@
     <div class = "column is-one-third">
         <h1 class = "is-size-2 has-text-weight-bold mb-3">New category</h1>
 
-        <%= form_with model: @category, url: categories_path, local: true do |f| %>
+        <%= form_with model: @category, url: user_categories_path(current_user), local: true do |f| %>
 
             <p> 
                 <% if @category.errors.any?%>
@@ -26,15 +26,9 @@
                 <%= f.text_area :description, class: "input", style: "margin: 0px; width:583.6px; height: 300px;" %>
             </p>
 
-            <p class = 'field'>
-                <%= f.label :tags%> </br>
-                <%= f.select :tags, ['Sports','Personal','Education','Recreation'], class: "input", style: "margin: 0px; width:583.6px; height: 50px;"%>
-            </p>
-
-
             <p>
                 <%= f.submit class: "button is-gray" %>
-                <%= link_to 'Back', categories_path, class: "button is-gray mb-2" %>
+                <%= link_to 'Back', user_categories_path(:user_id), class: "button is-gray mb-2" %>
             </p>
         <% end %>
     </div>

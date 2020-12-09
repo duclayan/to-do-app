@@ -4,7 +4,8 @@ class TaskTest < ActiveSupport::TestCase
 
   def setup
     @category = categories(:one)
-    @task = Task.new(title: 'Make Manakeesh', description: 'You have to prepare the ingredients before creating this goodie', category_id: @category.id)
+    @user = users(:one)
+    @task = Task.new( title: 'Sample One', description: 'This is a sample description', category_id: @category.id, user_id: @user.id)
 
   end
   

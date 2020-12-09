@@ -12,20 +12,21 @@ class CreateTaskTest < ActionDispatch::IntegrationTest
 
     @task = tasks(:one)
     @category = categories(:one)
-    @sample_keys = {category_id: @category.id ,id: @task.id}
-    @sample_params = {params: {task: {title: 'Create and Amazing API', description: 'Get started with an amazing API by searching', category_id: @category.id}}}
-    @category_id = {:category_id => @category.id}
+    @user = users(:one)
+    @sample_keys = {category_id: @category.id ,user_id: @user.id, id: @task.id}
+    @sample_params = {params: {task: {title: 'Create and Amazing API', description: 'Get started with an amazing API by searching', category_id: @category.id, user_id: @user.id}}}
+    @category_id = {:category_id => @category.id , :user_id => @user.id}
     sign_in users(:one)
 
 
     end
 
     test '01: User creates new task' do
-        get new_category_task_path(@category_id), **@sample_params
+        get new_user_category_task_path(@category_id), **@sample_params
         assert_response :success
 
         assert_difference 'Task.count', 1 do 
-            post category_tasks_path(@category_id), **@sample_params
+            post user_category_tasks_path(@category_id), **@sample_params
             assert_response :redirect
         end
 
@@ -34,11 +35,11 @@ class CreateTaskTest < ActionDispatch::IntegrationTest
     end
 
     test '02: Update current task' do
-        get edit_category_task_path(@sample_keys)
+        get edit_user_category_task_path(@sample_keys)
         assert_response :success
 
         assert_changes '@task.title' do
-            patch category_task_path(@category_id), **@sample_params
+            patch user_category_task_path(@sample_keys), **@sample_params
             @task.reload
             assert_response :redirect
         end
@@ -48,11 +49,11 @@ class CreateTaskTest < ActionDispatch::IntegrationTest
     end
 
     test '03: Delete task - task is done' do
-        get edit_category_task_path(@sample_keys)
+        get edit_user_category_task_path(@sample_keys)
         assert_response :success
 
         assert_difference 'Task.count', -1 do 
-            delete category_task_path(@sample_keys)
+            delete user_category_task_path(@sample_keys)
             assert_response :redirect
         end
         follow_redirect!

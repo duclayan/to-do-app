@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_05_120907) do
+ActiveRecord::Schema.define(version: 2020_12_09_103548) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "tags"
+    t.integer "user_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -27,6 +28,7 @@ ActiveRecord::Schema.define(version: 2020_12_05_120907) do
     t.integer "category_id"
     t.date "deadline"
     t.boolean "iscomplete"
+    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|

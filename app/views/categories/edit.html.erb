@@ -1,7 +1,7 @@
 <div class = "columns is-centered mt-6">
     <div class = "column is-one-third">
         <h1 class = "is-size-2 has-text-weight-bold mb-3">Edit category</h1>
-        <%= form_with method: :put, scope: :category, url: category_path, local: true do |f| %>
+        <%= form_with method: :put, scope: :category, url: user_category_path, local: true do |f| %>
             <p>
                 <% if @category.errors.any? %>
                     <ul>
@@ -27,8 +27,8 @@
             
             <p>
                 <%= f.submit  class: "button is-gray"%>
-                <%= link_to 'Back', categories_path,  class: "button is-gray mb-2" %>
-                <%= link_to 'Delete', category_path(@category), method: :delete, data: { confirm: 'Are you sure?' },  class: "button is-gray" %>
+                <%= link_to 'Back', user_categories_path,  class: "button is-gray mb-2" %>
+                <%= link_to 'Delete', user_category_path(@category), method: :delete, data: { confirm: 'Are you sure?' },  class: "button is-gray" %>
             </p>
         <% end %>
         

@@ -1,10 +1,8 @@
 class TasksController < ApplicationController
-#   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
-
-  def set_task
-    @task = Task.find(params[:id])
-  end
+  # before_action :set_task, only: [:show, :edit, :update, :destroy]
+  # before_action :set_category
+  before_action :authenticate_user!, only: [:edit, :destroy, :new]
+  skip_before_action :verify_authenticity_token
 
   def authenticate_user!(opts={})
     opts[:scope] = :user
@@ -16,14 +14,20 @@ class TasksController < ApplicationController
   end
 
   def new 
-    @task = Task.new
+      @task = Task.new
+      @categories = Category.all.map {|c| [c.name, c.id]}
   end
 
   def create
-      @task = Task.new(task_params)
-
-      if @task.save!
-          redirect_to category_tasks_path
+    @user = User.find(params[:user_id])
+    @category = Category.find(params[:category_id])
+    @task = @category.tasks.new(task_params)
+    # @user = User.find(params[:user_id])
+    @category.tasks << @task
+    @user.tasks << @task
+    
+      if @user.save && @task.save!
+          redirect_to user_category_tasks_path
       else 
           render :new
       end
@@ -33,20 +37,21 @@ class TasksController < ApplicationController
       @task = Task.find(params[:id])
 
       if @task.update(task_params)
-          redirect_to categories_path
+          redirect_to user_categories_path
       else
           render :edit
       end
   end
 
   def show 
-      @task = Task.find(params[:id])
+    #   @category = Category.find(params[:category_id])
+      @task = Task.find(params[:id])  
   end
 
   def destroy
       @task = Task.find(params[:id])
       @task.delete
-      redirect_to categories_path
+      redirect_to user_categories_path
   end
 
   def edit
@@ -54,8 +59,17 @@ class TasksController < ApplicationController
   end
 
   private
+  
+  def set_task
+    @task = Task.find(params[:id])
+  end
+
+  # def set_category
+  #   @category = Category.find(params[:category_id])
+  # end
 
   def task_params
-      params.require(:task).permit(:title, :description, :category_id, :deadline, :iscomplete)
+      params.require(:task).permit(:id, :title, :description, :category_id, :deadline, :iscomplete, :user_id)
   end
+
 end

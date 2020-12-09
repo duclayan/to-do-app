@@ -1,0 +1,33 @@
+<div class = "container mt-6 is-centered">
+
+    <div class="table-container">
+        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+            <thead>
+                <tr>
+                    <th> Category </th>
+                    <th> Deadline </th>
+                    <th> Task </th>
+                    <th> Action </th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <% @tasks.each do |entry|%>
+                        <tr>
+                            <td> <%= entry.category.tags %> </td>
+                            <td> <%= entry.created_at.strftime("%B %d, %Y") %> </td>
+                            <td> <%= entry.title%> </td>
+                            <td>                 
+                                <div class = "card-footer" >
+                                    <%= link_to 'Details', category_task_path(entry.category, entry)%>
+                                    <%= link_to 'Edit', edit_category_task_path(entry.category, entry), class: 'card-footer-item' %>
+                                    <%= link_to 'Destroy', category_task_path(entry.category, entry), method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-footer-item' %>
+                                </div>    
+                            </td>
+                    </tr> 
+                <% end %>
+            </tbody>
+
+        </table>
+    </div>
+</div>

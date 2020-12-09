@@ -4,9 +4,10 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
   def setup
     @category = categories(:one)
     @task = tasks(:one)
-    @sample_keys = {category_id: @category.id ,id: @task.id}
-    @sample_params =  {params: { task: {title: 'Sampletitle', description: 'This is a sample body text of an input', category_id: @category.id} }}
-    get category_tasks_url(@category)
+    @user = users(:one)
+    @sample_keys = {category_id: @category.id, user_id: @user.id, id: @task.id}
+    @sample_params =  {params: { task: {title: 'Sampletitle', description: 'This is a sample body text of an input', category_id: @category.id, user_id: @user.id}}}
+    get user_category_task_url(@sample_keys)
     sign_in users(:one)
 
     
@@ -14,12 +15,12 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '01: should get new' do 
-    get new_category_task_path, **@sample_params
+    get new_user_category_task_path, **@sample_params
     assert_response :success
   end
 
   test '02: should create' do
-      post category_tasks_path, **@sample_params
+      post user_category_tasks_path(@sample_keys), **@sample_params
       assert_response :redirect
 
       follow_redirect!
@@ -27,18 +28,18 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test '03: should update' do
-      put category_task_path(@sample_keys), **@sample_params
+      put user_category_task_path(@sample_keys), **@sample_params
       assert_equal 'Sampletitle', assigns(:task).title
   end
 
   test '04: should show' do
-      get category_task_path(@sample_keys)
+      get user_category_task_path(@sample_keys)
       assert_response :success
 
   end
 
   test '05: should get delete' do 
-      delete category_task_path(@sample_keys)
+      delete user_category_task_path(@sample_keys)
 
       follow_redirect!
       assert_response :success

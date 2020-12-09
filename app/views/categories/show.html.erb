@@ -1,17 +1,4 @@
-<div class = "columns mt-6 is-centered" style = "padding: 100px;">
-  <div class = "column">
-    <p class = "is-size-2 has-text-weight-bold mb-3">
-        <%= @category.name%>
-    </p>
-
-    <p>
-        <%= @category.description%>
-    </p>
-
-    <p style = "margin-top: 50px;">
-        <%= link_to 'Edit', edit_category_path(@category), method: :edit, class: 'button is-gray' %>
-        <%= link_to 'Back to categories', categories_path, class: 'button is-gray'%>
-    </p>
-
-  </div>
-</div>
+<h3> Products under this category </h3>
+<% Product.where(category_id: @category.id).each do |product| %>
+<li> <%= product.name %> </li>
+<% end %>

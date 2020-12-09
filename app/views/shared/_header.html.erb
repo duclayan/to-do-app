@@ -1,6 +1,13 @@
 <section class="hero is-warning">
   <!-- Hero content: will be in the middle -->
   <div class="hero-body" style="max-width: 100%; margin: 0px">
+    <% if current_user %>
+      <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'button is-gray' %>
+    <% else %>
+      <%= link_to 'Sign-up', new_user_registration_path, class: 'button is-gray' %>
+      <%= link_to 'Sign in', new_user_session_path, class: 'button is-gray' %>
+    <% end %>
+
     <div class="container has-text-centered">
       <h1 class="title">
         To Do List
@@ -8,8 +15,13 @@
       <h2 class="subtitle">
         Work Hard, Party Harder!
       </h2>
+      <%# <%= link_to 'Add Something', new_category_task_path(:category_id),  class: 'button is-gray' %>
 
-      <%= link_to 'Add Something', new_category_task_path(:category_id),  class: 'button is-gray' %>
+      <% if current_user%>
+      <%= link_to 'New Task', user_categories_path(current_user),  class: 'button is-gray' %>
+      <%= link_to 'Urgent Tasks', user_category_tasks_path(current_user, :category_id),  class: 'button is-gray' %>
+      <% end %>
+
     </div>
   </div>
 
