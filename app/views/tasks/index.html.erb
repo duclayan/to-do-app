@@ -1,35 +1,38 @@
-<div class = "container mt-6 is-centered">
+<%if current_user%>
+    <div class = "container mt-6 is-centered">
 
-    <div class="table-container">
-        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
-            <thead>
-                <tr>
-                    <%# <th> Category </th> %>
-                    <th> Task </th>
-                    <th> Action </th>
-                </tr>
-            </thead>
+        <div class="table-container">
+            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                <thead>
+                    <tr>
+                        <th> Category </th>
+                        <th> User ID </th>
+                        <th> Task </th>
+                        <th> Action </th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                <% @task.each do |entry|%>
+                <tbody>
+                    <% @task.each do |entry|%>
 
+                        <% if current_user.id === entry.user_id  %>
+                            <tr class = 'table-contents'>
+                                <td> <%= entry.category_id %> </td>
+                                <td> <%= entry.user_id%> </td> 
+                                <td> <%= entry.title%> </td>
+                                <td>                 
+                                    <div class = "card-footer" >
+                                        <%= link_to 'Details', user_category_task_path(current_user, entry.category_id, entry.id),method: :get, class: 'card-footer-item' %>
+                                        <%= link_to 'Edit', edit_user_category_task_path(current_user, entry.category_id,entry.id), class: 'card-footer-item' %>
+                                        <%= link_to 'Destroy', user_category_task_path(current_user, entry.category_id, entry.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-footer-item'%>
+                                    </div>    
+                                </td>
+                            </tr> 
+                        <% end %>
+                    <% end %>
+                </tbody>
 
-                    <% if entry.deadline === Date.today && current_user = entry.user.id %>
-                        <tr>
-                            <%# <td> <%= entry.category.name %> </td> %>
-                            <td> <%= entry.title%> </td>
-                            <td>                 
-                                <div class = "card-footer" >
-                                    <%= link_to 'Details', user_category_task_path(current_user, entry.category, entry.id),method: :get, class: 'card-footer-item' %>
-                                    <%= link_to 'Edit', edit_user_category_task_path(current_user, entry.category,entry.id), class: 'card-footer-item' %>
-                                    <%= link_to 'Destroy', user_category_task_path(current_user, entry.category, entry.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-footer-item' %>
-                                </div>    
-                            </td>
-                        </tr> 
-                   <% end %>
-                <% end %>
-            </tbody>
-
-        </table>
+            </table>
+        </div>
     </div>
-</div>
+<% end %>

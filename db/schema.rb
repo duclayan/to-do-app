@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_09_103548) do
+ActiveRecord::Schema.define(version: 2020_12_11_171524) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2020_12_09_103548) do
     t.date "deadline"
     t.boolean "iscomplete"
     t.integer "user_id"
+    t.boolean "show_all"
   end
 
   create_table "users", force: :cascade do |t|

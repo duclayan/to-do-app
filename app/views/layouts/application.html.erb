@@ -10,6 +10,7 @@
     <link rel = 'stylesheet' href = 'index.csss.erb'>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
   </head>
 
   <body style="margin: 0px">
@@ -18,5 +19,6 @@
       <%= render 'layouts/alerts' %>
       <%= yield %>
     </div>
+    <%# <script src="/javascript/packs/application.js"></script> %>
   </body>
 </html>

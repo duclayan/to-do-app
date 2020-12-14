@@ -15,11 +15,12 @@
       <h2 class="subtitle">
         Work Hard, Party Harder!
       </h2>
-      <%# <%= link_to 'Add Something', new_category_task_path(:category_id),  class: 'button is-gray' %>
 
       <% if current_user%>
-      <%= link_to 'New Task', user_categories_path(current_user),  class: 'button is-gray' %>
-      <%= link_to 'Urgent Tasks', user_category_tasks_path(current_user, :category_id),  class: 'button is-gray' %>
+        <%= link_to 'New Task', user_categories_path(current_user),  class: 'button is-gray' %>
+        <%= link_to 'Urgent Tasks',  user_category_tasks_path(current_user, :category_id, :deadline => Date.today), class: 'button is-gray'%>
+        <%= link_to 'Show All Task', user_category_tasks_path(current_user, :category_id), class: 'button is-gray' %>
+
       <% end %>
 
     </div>

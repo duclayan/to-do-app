@@ -13,16 +13,20 @@
             
             <tbody>
                 <% @categories.each do |category|%>
-                        <tr>
+                    <% if category.user_id === current_user.id || category.id < 7 %>
+                        <tr>    
                             <td> <%= category.name%> </td>
                             <td>                 
                                 <div class = "card-footer" >
-                                    <%= link_to 'Edit Category', edit_user_category_path(current_user, category.id), class: 'card-footer-item'%>
                                     <%= link_to 'Add Task', new_user_category_task_path(current_user, category.id), class: 'card-footer-item' %>
-                                    <%= link_to 'Destroy', user_category_path(current_user, category.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-footer-item' %>
+                                    <% if category.user_id === current_user.id %>
+                                        <%= link_to 'Destroy', user_category_path(current_user, category.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-footer-item' %>
+                                        <%= link_to 'Edit Category', edit_user_category_path(current_user, category.id), class: 'card-footer-item'%>
+                                    <% end %>
                                 </div>    
                             </td>
-                    </tr> 
+                        </tr> 
+                    <% end %>
                 <% end %>
             </tbody>
 

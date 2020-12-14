@@ -1,16 +1,18 @@
 class TasksController < ApplicationController
-  # before_action :set_task, only: [:show, :edit, :update, :destroy]
-  # before_action :set_category
   before_action :authenticate_user!, only: [:edit, :destroy, :new]
   skip_before_action :verify_authenticity_token
 
-  def authenticate_user!(opts={})
-    opts[:scope] = :user
-    warden.authenticate!(opts) if !devise_controller? || opts.delete(:force)
-  end
+  # def authenticate_user!(opts={})
+  #   opts[:scope] = :user
+  #   warden.authenticate!(opts) if !devise_controller? || opts.delete(:force)
+  # end
 
   def index
-    @task = Task.all
+    if params[:deadline]
+      @task = Task.where(:deadline => Date.today)
+    else
+      @task = Task.all
+    end
   end
 
   def new 
@@ -44,18 +46,25 @@ class TasksController < ApplicationController
   end
 
   def show 
-    #   @category = Category.find(params[:category_id])
-      @task = Task.find(params[:id])  
+    @task = Task.find(params[:id])
+
+    # if Category.find(params[:id])
+    #   @task = Task.find(params[:id])
+    # else
+    #   @task.destroy
+    # end
+
   end
+  # end
 
   def destroy
       @task = Task.find(params[:id])
       @task.delete
-      redirect_to user_categories_path
+      redirect_to user_category_tasks_path
   end
 
   def edit
-      @task = Task.find(params[:id])
+    @task = Task.find(params[:id])
   end
 
   private
@@ -64,12 +73,8 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
 
-  # def set_category
-  #   @category = Category.find(params[:category_id])
-  # end
-
   def task_params
-      params.require(:task).permit(:id, :title, :description, :category_id, :deadline, :iscomplete, :user_id)
+      params.require(:task).permit(:id, :title, :description, :category_id, :deadline, :iscomplete, :user_id, :show_all)
   end
 
 end
